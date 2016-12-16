@@ -1,0 +1,2 @@
+-copy file .bashrc to your profile directory
+-install this: https://github.com/jimeh/git-aware-prompt
