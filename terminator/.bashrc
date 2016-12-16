@@ -151,6 +151,12 @@ TITLE="\e]2;$*\a"
 PS1=${ORIG}${TITLE}
 }
 
+cd(){  
+     builtin cd "$@";
+     ORIG=$PS1
+     TITLE="\e]2;${PWD##*/}\a"
+     PS1=${ORIG}${TITLE}
+}
 
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/slawek/Dev/Installed/flyway/flyway-3.2.1:/home/slawek/Dev/Installed/phantomjs/bin:/home/slawek/Dev/Installed/activator-current/bin
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/slawek/env/current-flyway:/home/slawek/env/current-phantomjs/bin:/home/slawek/env/current-activator/bin:/home/slawek/env/current-scala/bin
 
