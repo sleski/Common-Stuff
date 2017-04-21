@@ -1,5 +1,4 @@
 alias acc="activator clean compile"
-alias acr="activator clean run"
 alias act="activator clean test"
 alias acto='function __activatorTestOnly() { eval "activator clean \"testOnly $*\""; unset -f __activatorTestOnly; }; __activatorTestOnly'
 alias actpub="activator clean test publishLocal"
@@ -18,17 +17,27 @@ alias a12k="activator clean \"run 12000\""
 alias a13k="activator clean \"run 13000\""
 alias a14k="activator clean \"run 14000\""
 alias a15k="activator clean \"run 15000\""
-alias gpl="git pull"
+alias wdTrue="export webdriverTest=true"
+alias wdPhantomjs="export webdriverBrowser=phantomJS"
+alias wdLocal="export webdriverTarget=local"
+alias wdDev="export webdriverTarget=dev"
+alias wdTest="export webdriverTarget=test"
+alias gpull="git pull"
 alias gst="git status"
 alias gpushm="git push origin master"
 alias gpushb="git push origin HEAD"
-alias glg="git lg1a"
-alias gdf="git diff"
-alias gad="git add ."
+alias glog="git lg1a"
+alias gdiff="git diff"
+alias gaddall="git add ."
 alias sss="ssssssssss_settitle"
 alias gchm="git checkout master"
-alias gcom='function __gcm() { eval "git commit -m \"$*\""; unset -f __gcm; }; __gcm'
+alias gcommit='function __gcm() { eval "git commit -m \"$*\""; unset -f __gcm; }; __gcm'
 alias gaddfile='function __gaf() { eval "git add $*"; unset -f __gaf; }; __gaf'
 alias gdifffile='function __gdfile() { eval "git diff $*"; unset -f __gdfile; }; __gdfile'
 alias gchfile='function __gchfile() { eval "git checkout $*"; unset -f __gchfile; }; __gchfile'
 alias gnewbra='function __gnewbra() { eval "git checkout -b $*"; unset -f __gnewbra; }; __gnewbra'
+
+
+#funny
+alias weather="curl http://wttr.in/Munich?lang=en"
+
