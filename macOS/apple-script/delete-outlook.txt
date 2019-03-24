@@ -1,0 +1,88 @@
+set shortCutoff4 to 4 * hours
+set shortCutoff36 to 36 * hours
+set shortCutoff48 to 48 * hours
+set today to (current date)
+
+if application "Microsoft Outlook" is running then
+	tell application "Microsoft Outlook"
+		set inboxFolder to folder "Inbox" of default account
+		--jenkins 4 hours
+		set jenkinsFolder to folder "jenkins" of inboxFolder
+		set jenkinsMessages to messages of jenkinsFolder
+		set countDeletedJenkins to 0
+		repeat with aMessage in jenkinsMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff4 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedJenkins to countDeletedJenkins + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedJenkins & " deleted jenkins email(s)"
+		
+		--phraseapp
+		set phraseappFolder to folder "phraseapp" of inboxFolder
+		set phraseappMessages to messages of phraseappFolder
+		set countDeletedPhraseapp to 0
+		repeat with aMessage in phraseappMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff4 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedPhraseapp to countDeletedPhraseapp + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedPhraseapp & " deleted phraseapp emails(s)"
+		
+		
+		--Noris
+		set norisFolder to folder "Noris" of inboxFolder
+		set norisMessages to messages of norisFolder
+		set countDeletedNoris to 0
+		repeat with aMessage in norisMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff4 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedNoris to countDeletedNoris + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedNoris & " deleted Noris emails(s)"
+		
+		
+		--Github
+		set githubFolder to folder "Github" of inboxFolder
+		set githubMessages to messages of githubFolder
+		set countDeletedGithub to 0
+		repeat with aMessage in githubMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff36 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedGithub to countDeletedGithub + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedGithub & " deleted Github emails(s)"
+		
+		
+		--Trash
+		set trashFolder to folder "Deleted Items" of default account
+		set trashMessages to messages of trashFolder
+		set countDeletedTrash to 0
+		repeat with aMessage in trashMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff48 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedTrash to countDeletedTrash + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedTrash & " deleted Trash emails(s)"
+		
+		
+	end tell
+else
+	log "" & today & "- nothing to delete, Outlook is not working."
+end if
+
+
