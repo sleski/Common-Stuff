@@ -1,3 +1,4 @@
+set shortCutoff1 to 1 * hours
 set shortCutoff4 to 4 * hours
 set shortCutoff36 to 36 * hours
 set shortCutoff48 to 48 * hours
@@ -6,14 +7,14 @@ set today to (current date)
 if application "Microsoft Outlook" is running then
 	tell application "Microsoft Outlook"
 		set inboxFolder to folder "Inbox" of default account
-		--jenkins 4 hours
+		--jenkins 1 hours
 		set jenkinsFolder to folder "jenkins" of inboxFolder
 		set jenkinsMessages to messages of jenkinsFolder
 		set countDeletedJenkins to 0
 		repeat with aMessage in jenkinsMessages
 			set messageTime to time received of aMessage
 			set messageAge to today - messageTime
-			if messageAge > shortCutoff4 or (is read) of aMessage is true then
+			if messageAge > shortCutoff1 or (is read) of aMessage is true then
 				delete aMessage
 				set countDeletedJenkins to countDeletedJenkins + 1
 			end if
@@ -27,7 +28,7 @@ if application "Microsoft Outlook" is running then
 		repeat with aMessage in phraseappMessages
 			set messageTime to time received of aMessage
 			set messageAge to today - messageTime
-			if messageAge > shortCutoff4 or (is read) of aMessage is true then
+			if messageAge > shortCutoff1 or (is read) of aMessage is true then
 				delete aMessage
 				set countDeletedPhraseapp to countDeletedPhraseapp + 1
 			end if
@@ -57,12 +58,55 @@ if application "Microsoft Outlook" is running then
 		repeat with aMessage in githubMessages
 			set messageTime to time received of aMessage
 			set messageAge to today - messageTime
-			if messageAge > shortCutoff36 or (is read) of aMessage is true then
+			if messageAge > shortCutoff4 or (is read) of aMessage is true then
 				delete aMessage
 				set countDeletedGithub to countDeletedGithub + 1
 			end if
 		end repeat
 		log "Outlook cleanup ran at " & today & " - " & countDeletedGithub & " deleted Github emails(s)"
+		
+		--test-emails
+		set tmFolder to folder "test-emails" of inboxFolder
+		set teMessages to messages of tmFolder
+		set countDeletedTE to 0
+		repeat with aMessage in teMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff1 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedTE to countDeletedTE + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedTE & " deleted test-emails emails(s)"
+		
+		--docs4cancelled
+		set d4cFolder to folder "docs4cancelled" of inboxFolder
+		set d4cMessages to messages of d4cFolder
+		set countDeletedd4c to 0
+		repeat with aMessage in d4cMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff1 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedd4c to countDeletedd4c + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedd4c & " deleted docs4cancelled emails(s)"
+		
+		
+		--sentry
+		set sentryFolder to folder "sentry" of inboxFolder
+		set sentryMessages to messages of sentryFolder
+		set countDeletedsentry to 0
+		repeat with aMessage in sentryMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff1 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedsentry to countDeletedsentry + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedsentry & " deleted sentry emails(s)"
 		
 		
 		--Trash
@@ -72,7 +116,7 @@ if application "Microsoft Outlook" is running then
 		repeat with aMessage in trashMessages
 			set messageTime to time received of aMessage
 			set messageAge to today - messageTime
-			if messageAge > shortCutoff48 or (is read) of aMessage is true then
+			if messageAge > shortCutoff36 or (is read) of aMessage is true then
 				delete aMessage
 				set countDeletedTrash to countDeletedTrash + 1
 			end if
@@ -80,9 +124,23 @@ if application "Microsoft Outlook" is running then
 		log "Outlook cleanup ran at " & today & " - " & countDeletedTrash & " deleted Trash emails(s)"
 		
 		
+		--Junk Email
+		set junkFolder to folder "Junk Email" of default account
+		set junkMessages to messages of junkFolder
+		set countDeletedJunk to 0
+		repeat with aMessage in junkMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff36 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedJunk to countDeletedJunk + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedJunk & " deleted Junk emails(s)"
+		
+		
 	end tell
 else
 	log "" & today & "- nothing to delete, Outlook is not working."
 end if
-
 
