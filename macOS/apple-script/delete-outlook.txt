@@ -79,21 +79,6 @@ if application "Microsoft Outlook" is running then
 		end repeat
 		log "Outlook cleanup ran at " & today & " - " & countDeletedTE & " deleted test-emails emails(s)"
 		
-		--docs4cancelled
-		set d4cFolder to folder "docs4cancelled" of inboxFolder
-		set d4cMessages to messages of d4cFolder
-		set countDeletedd4c to 0
-		repeat with aMessage in d4cMessages
-			set messageTime to time received of aMessage
-			set messageAge to today - messageTime
-			if messageAge > shortCutoff1 or (is read) of aMessage is true then
-				delete aMessage
-				set countDeletedd4c to countDeletedd4c + 1
-			end if
-		end repeat
-		log "Outlook cleanup ran at " & today & " - " & countDeletedd4c & " deleted docs4cancelled emails(s)"
-		
-		
 		--sentry
 		set sentryFolder to folder "sentry" of inboxFolder
 		set sentryMessages to messages of sentryFolder
