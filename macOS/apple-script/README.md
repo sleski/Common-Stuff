@@ -1,7 +1,9 @@
-• How trigger:
+# How use Apple Script
+
+* Open 'Script Editor'
+
+* Where is the trigger:
+  * /Users/sleski/outlook.delete.plist
   
-  /Users/sleski/outlook.delete.plist
-  
-• Script
-  
-  /Users/sleski/Library/Scripts/outlook-jenkins.scpt
+* Where is the Script
+  * /Users/sleski/Library/Scripts/outlook-jenkins.scpt
