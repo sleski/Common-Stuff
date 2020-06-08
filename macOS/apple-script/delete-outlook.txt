@@ -108,6 +108,20 @@ if application "Microsoft Outlook" is running then
 		end repeat
 		log "Outlook cleanup ran at " & today & " - " & countDeletedTrash & " deleted Trash emails(s)"
 		
+		--ZZZ-newsletters-emails
+		set zzzFolder to folder "ZZZ-newsletters-emails" of inboxFolder
+		set zzzMessages to messages of zzzFolder
+		set countDeletedZzz to 0
+		repeat with aMessage in zzzMessages
+			set messageTime to time received of aMessage
+			set messageAge to today - messageTime
+			if messageAge > shortCutoff1 or (is read) of aMessage is true then
+				delete aMessage
+				set countDeletedZzz to countDeletedZzz + 1
+			end if
+		end repeat
+		log "Outlook cleanup ran at " & today & " - " & countDeletedZzz & " deleted ZZZ-newsletters-emails emails(s)"
+		
 		
 		--Junk Email
 		set junkFolder to folder "Junk Email" of default account
